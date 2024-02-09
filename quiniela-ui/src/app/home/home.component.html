@@ -1,0 +1,43 @@
+<header class="navbar sticky-top flex-md-nowrap p-0 shadow" data-bs-theme="dark">
+    <a data-bs-toggle="offcanvas" href="#offcanvasMenu" role="button" aria-controls="offcanvasMenu"> 
+      <img src="/assets/images/logo.png" alt="QuinielaML" height="48px" class="ml-5 mt-1 mb-1">
+    </a>
+</header>
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasMenuLabel"><img src="/assets/images/icon.png" alt="QuinielaML" height="48px"> Menu</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+    <ul class="nav flex-column">
+      
+      <li class="nav-item">
+        <span class="nav-link d-flex align-items-center gap-2 pointer" (click)="loadPage('Data')" data-bs-dismiss="offcanvas">
+          <fa-icon [icon]="['fas', 'file-import']"></fa-icon>
+          Data management
+        </span>
+      </li>
+      <li class="nav-item">
+        <span class="nav-link d-flex align-items-center gap-2 pointer" (click)="loadPage('Prediction')" data-bs-dismiss="offcanvas">
+          <fa-icon [icon]="['fas', 'futbol']"></fa-icon>
+          Result prediction
+        </span>
+      </li>
+    </ul>          
+
+    <hr class="my-3">
+
+    <ul class="nav flex-column mb-auto">
+      <li class="nav-item">
+        <span class="nav-link d-flex align-items-center gap-2 pointer" (click)="logout()">
+          <fa-icon [icon]="['fas', 'right-from-bracket']"></fa-icon>
+          Sign out
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
+<main class="ml-10 mr-10">
+  <app-data *ngIf="selection === 'Data'"></app-data>
+  <app-prediction *ngIf="selection === 'Prediction'"></app-prediction>
+</main>

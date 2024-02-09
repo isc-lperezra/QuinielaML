@@ -1,0 +1,64 @@
+<div class="row">
+    <table class="table table-hover">
+        <thead>
+            <tr style="text-align: center;">
+                <th scope="col">Day</th>
+                <th scope="col">Round</th>
+                <th scope="col">Home</th>
+                <th scope="col">Away</th>
+                <th scope="col">Result</th>
+                <th scope="col">Prediction</th>
+                <th scope="col">1</th>
+                <th scope="col">X</th>
+                <th scope="col">2</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="text-align: center;" *ngFor="let match of matches" (click)="open(content, match)">
+                <td>{{match.day}}</td>
+                <td>{{match.journey}}</td>
+                <td>{{match.local}}</td>
+                <td>{{match.visitor}}</td>
+                <td>{{match.result}}</td>
+                <td [ngClass]="{'fail': match.result != '' && match.predictedResult != match.result, 'match': match.predictedResult == match.result}">{{match.predictedResult}}</td>
+                <td>{{match.probability1}} %</td>
+                <td>{{match.probabilityX}} %</td>
+                <td>{{match.probability2}} %</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<ng-template #content let-modal>
+    <form (ngSubmit)="onSubmit()" [formGroup]="resultForm">
+        <div class="modal-header">
+            <h5 class="modal-title" id="modal-basic-title">Result of the match</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row align-items-center">
+                <div class="col-4 text-end">
+                    <span>{{selectedMatch?.local}}</span>
+                </div>
+                <div class="col-2 text-center">
+                    <input type="text" class="form-control" formControlName="LocalGoals">
+                </div>
+                <div class="col-2 text-center">
+                    <input type="text" class="form-control" formControlName="VisitorGoals">  
+                </div>
+                <div class="col-4">
+                    <span>{{selectedMatch?.visitor}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="deleteMatch(selectedMatch?.id); modal.dismiss()">
+                <fa-icon [icon]="['fas', 'trash']"></fa-icon>
+                <span class="margin-label">Delete Match</span>
+            </button>
+            <button type="submit" class="btn official-red" (click)="modal.dismiss()">
+                <fa-icon [icon]="['fas', 'futbol']"></fa-icon>
+                <span class="margin-label">Save Result</span>  
+            </button>
+        </div>
+    </form>
+</ng-template>
