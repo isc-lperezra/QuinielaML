@@ -38,6 +38,7 @@ Storage Default
 </Value>
 </Data>
 <DefaultData>MatchPredictedDefaultData</DefaultData>
+<ExtentSize>0</ExtentSize>
 <Type>%Storage.Persistent</Type>
 }
 
