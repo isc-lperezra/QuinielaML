@@ -126,9 +126,9 @@ Method ImportData(pRequest As QUINIELA.Message.ImportRequest, pResponse As QUINI
     {
       set sc = ..ImportFromWeb("Brasil")
     }
-    elseif (pRequest.Operation = "Argentina")
+    elseif (pRequest.Operation = "1fem")
     {
-      set sc = ..ImportFromWeb("Argentina")
+      set sc = ..ImportFromWeb("1fem")
     }
     elseif (pRequest.Operation = "Eredivisie")
     {
@@ -138,9 +138,9 @@ Method ImportData(pRequest As QUINIELA.Message.ImportRequest, pResponse As QUINI
     {
       set sc = ..ImportFromWeb("1RFEF")
     }
-    elseif (pRequest.Operation = "Eurocup")
+    elseif (pRequest.Operation = "International")
     {
-      set sc = ..ImportFromWeb("Eurocup")
+      set sc = ..ImportFromWeb("International")
     }
     set pResponse.Status = "Finished"
     Return sc
@@ -248,13 +248,19 @@ ClassMethod ImportFromWeb(division As %String) As %String [ Language = python ]
                                   case 0:
                                       matchObject.Day = specificMatch.contents[0].text
                                   case 1:
-                                      matchObject.LocalTeam = specificMatch.contents[0].text
+                                      if division == '1fem':
+                                        matchObject.LocalTeam = specificMatch.contents[0].text + ' (F)'
+                                      else :
+                                        matchObject.LocalTeam = specificMatch.contents[0].text
                                   case 2:
                                       if specificMatch.div is not None and specificMatch.div.a is not None and specificMatch.div.a.contents is not None and len(specificMatch.div.a.contents) > 1:
                                         matchObject.GoalsLocal = specificMatch.div.a.contents[0].text
                                         matchObject.GoalsVisitor = specificMatch.div.a.contents[1].text
                                   case 3:
-                                      matchObject.VisitorTeam = specificMatch.contents[0].text
+                                      if division == '1fem':
+                                        matchObject.VisitorTeam = specificMatch.contents[0].text + ' (F)'
+                                      else :
+                                        matchObject.VisitorTeam = specificMatch.contents[0].text
                                   case 5:
                                       matchObject.Referee = specificMatch.contents[0].text
                               matchObject.Division = division                                    
