@@ -39,8 +39,6 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <property name='importBundesligaResponse' type='QUINIELA.Message.ImportResponse' instantiate='1' />
 <property name='importBrasilRequest' type='QUINIELA.Message.ImportRequest' instantiate='1' />
 <property name='importBrasilResponse' type='QUINIELA.Message.ImportResponse' instantiate='1' />
-<property name='import1femRequest' type='QUINIELA.Message.ImportRequest' instantiate='1' />
-<property name='import1femResponse' type='QUINIELA.Message.ImportResponse' instantiate='1' />
 <property name='importEredivisieRequest' type='QUINIELA.Message.ImportRequest' instantiate='1' />
 <property name='importEredivisieResponse' type='QUINIELA.Message.ImportResponse' instantiate='1' />
 <property name='import1RFEFRequest' type='QUINIELA.Message.ImportRequest' instantiate='1' />
@@ -133,15 +131,6 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <assign property="context.importBrasilResponse" value="callresponse" action="set" />
 </response>
 </call>
-<assign name="Get 1fem" property="context.import1femRequest.Operation" value="&quot;1fem&quot;" action="set" xpos='335' ypos='2300' />
-<call name='Read 1fem' target='QUINIELA.BO.ImportBO' async='1' xpos='335' ypos='2400' >
-<request type='QUINIELA.Message.ImportRequest' >
-<assign property="callrequest" value="context.import1femRequest" action="set" />
-</request>
-<response type='QUINIELA.Message.ImportResponse' >
-<assign property="context.import1femResponse" value="callresponse" action="set" />
-</response>
-</call>
 <assign name="Get Eredivisie" property="context.importEredivisieRequest.Operation" value="&quot;Eredivisie&quot;" action="set" xpos='335' ypos='2500' />
 <call name='Read Eredivisie' target='QUINIELA.BO.ImportBO' async='1' xpos='335' ypos='2600' >
 <request type='QUINIELA.Message.ImportRequest' >
@@ -169,7 +158,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <assign property="context.importInternationalResponse" value="callresponse" action="set" />
 </response>
 </call>
-<sync name='Wait for calls' calls='Read First Division,Read Second Division,Read Primeira Division,Read Premier Division,Read Serie A,Read Ligue 1,Read Bundesliga,Read Brasileirao,Read 1fem,Read Eredivisie,Read International' type='all' xpos='335' ypos='2900' />
+<sync name='Wait for calls' calls='Read First Division,Read Second Division,Read Primeira Division,Read Premier Division,Read Serie A,Read Ligue 1,Read Bundesliga,Read Brasileirao,Read Eredivisie,Read International' type='all' xpos='335' ypos='2900' />
 <call name='Create Team Dictionary' target='QUINIELA.BO.ImportBO' async='1' xpos='335' ypos='3000' >
 <request type='QUINIELA.Message.DictionaryTeamRequest' >
 <assign property="callrequest" value="context.dictionaryTeamRequest" action="set" />
