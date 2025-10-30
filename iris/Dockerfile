@@ -1,4 +1,4 @@
-ARG IMAGE=containers.intersystems.com/intersystems/iris-ml-community:latest-cd
+ARG IMAGE=containers.intersystems.com/intersystems/iris-ml:2024.1
 FROM $IMAGE
 
 USER root
@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y python3
 COPY --chown=$ISC_PACKAGE_MGRUSER:$ISC_PACKAGE_IRISGROUP /requirements.txt /
 RUN chmod 777 /requirements.txt
 
-RUN pip3 install -r /requirements.txt --break-system-packages
+RUN pip3 install -r /requirements.txt
 
 USER irisowner
 
