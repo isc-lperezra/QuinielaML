@@ -1,5 +1,7 @@
 shared/durable
 settings.json
+shared/iris.key
+
 # Compiled output
 quiniela-ui/dist
 quiniela-ui/tmp

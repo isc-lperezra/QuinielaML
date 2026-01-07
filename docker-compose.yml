@@ -17,7 +17,26 @@ services:
       IRIS_NAMESPACE: QUINIELA
       IRIS_USERNAME: testuser
       IRIS_PASSWORD: testpassword
-    command: --check-caps false --ISCAgent false
+    command: --check-caps false --ISCAgent false --key /shared/iris.key
+
+  webgateway:
+    init: true
+    container_name: webgateway
+    build:
+      context: .
+      dockerfile: webgateway/Dockerfile
+    hostname: webgateway
+    ports:
+    - "8080:80"
+    - "8443:443"
+    environment:
+    - ISC_DATA_DIRECTORY=/webgateway-shared/durable
+    - ISC_CSP_CONF_FILE=/webgateway-shared/CSP.conf
+    - ISC_CSP_INI_FILE=/webgateway-shared/CSP.ini
+    volumes:
+    - ./webgateway/shared:/webgateway-shared
+    depends_on:
+    - iris  
 
 # angular
   angular:
@@ -27,6 +46,7 @@ services:
       context: .
       dockerfile: quiniela-ui/Dockerfile
     ports:
-      - 4200:4200
+      - 81:80
+      - 443:443
     depends_on:
       - iris

@@ -20,11 +20,17 @@ USER irisowner
 WORKDIR /opt/irisapp
 COPY --chown=irisowner:irisowner src src
 
+COPY --chown=$ISC_PACKAGE_MGRUSER:$ISC_PACKAGE_IRISGROUP /iris/certificates /certificates
+RUN chmod +x /certificates
+
 COPY --chown=$ISC_PACKAGE_MGRUSER:$ISC_PACKAGE_IRISGROUP /iris/irissession.sh /
 RUN chmod +x /irissession.sh
 
 COPY --chown=$ISC_PACKAGE_MGRUSER:$ISC_PACKAGE_IRISGROUP /iris/webapp.xml /
 RUN chmod +x /webapp.xml
+
+COPY --chown=$ISC_PACKAGE_MGRUSER:$ISC_PACKAGE_IRISGROUP /iris/DemoSetup.Utilities.cls . 
+RUN chmod +x /opt/irisapp/DemoSetup.Utilities.cls
 
 SHELL ["/irissession.sh"]
 
@@ -35,6 +41,10 @@ if sc do ##class(Test.Installer).Install() \
 zn "QUINIELA" \
 # load lookup tables
 set sc = $SYSTEM.OBJ.LoadDir("/opt/irisapp/src/QUINIELA", "ck", , 1) \
+# configure ssl
+set sc=##class(%SYSTEM.OBJ).Load("/opt/irisapp/DemoSetup.Utilities.cls","ck") \
+set helper=##class(DemoSetup.Utilities).%New() \ 
+do helper.EnableSSLSuperServer() \
 # start production
 set production = "QUINIELA.Production" \
 set ^Ens.Configuration("csp","LastProduction") = production \
