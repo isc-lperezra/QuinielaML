@@ -53,12 +53,12 @@ docker-compose up -d
 ```
 Automatically an IRIS instance will be deployed and a production will be configured and run available to import data to create the prediction model and train it.
 
-* Open the [Management Portal](http://localhost:52774/csp/sys/%25CSP.Portal.Home.zen?$NAMESPACE=QUINIELA).
+* Open the [Management Portal](https://localhost:8443/csp/sys/%25CSP.Portal.Home.zen?$NAMESPACE=QUINIELA).
 * Login using the default `superuser`/ `SYS` account.
-* Click on [Production](http://localhost:52774/csp/QUINIELA/EnsPortal.ProductionConfig.zen) to access the production that we are going to use. You can access also through *Interoperability > User > Configure > Production*.
+* Click on [Production](https://localhost:8443/csp/QUINIELA/EnsPortal.ProductionConfig.zen) to access the production that we are going to use. You can access also through *Interoperability > User > Configure > Production*.
 
 Now you can check the frontend:
-* Open the main page from this [URL](http://localhost:4200).
+* Open the main page from this [URL](https://localhost).
   ![image](https://github.com/intersystems-ib/workshop-quiniela/blob/main/assets/login.png)
 
 * Login using `superuser` / `SYS` account.
