@@ -11,6 +11,7 @@
                 <th scope="col">1</th>
                 <th scope="col">X</th>
                 <th scope="col">2</th>
+                <th scope="col">Based</th>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +25,7 @@
                 <td>{{match.probability1}} %</td>
                 <td>{{match.probabilityX}} %</td>
                 <td>{{match.probability2}} %</td>
+                <td>{{match.randomBased}}</td>
             </tr>
         </tbody>
     </table>
@@ -55,7 +57,7 @@
                 <fa-icon [icon]="['fas', 'trash']"></fa-icon>
                 <span class="margin-label">Delete Match</span>
             </button>
-            <button type="submit" class="btn official-red" (click)="modal.dismiss()">
+            <button type="submit" class="btn official-red" (click)="onSubmit(); modal.dismiss()">
                 <fa-icon [icon]="['fas', 'futbol']"></fa-icon>
                 <span class="margin-label">Save Result</span>  
             </button>

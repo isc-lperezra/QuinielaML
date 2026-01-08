@@ -120,13 +120,24 @@ Method GetMatches(pRequest As QUINIELA.Message.OperationRequest, Output pRespons
         set resultSetMatches = statementMatches.%Execute(division)
         if (resultSetMatches.%SQLCODE = 0) {
             while (resultSetMatches.%Next() '= 0) {
+                set randomValue = $RANDOM(99) + 1
+                set randomBased = ""
+                if (randomValue <= resultSetMatches.%GetData(8)) {
+                    set randomBased = "1"
+                }
+                elseif ((randomValue > resultSetMatches.%GetData(8)) && (randomValue <= resultSetMatches.%GetData(8) + resultSetMatches.%GetData(9))) {
+                    set randomBased = "X"
+                }
+                else {
+                    set randomBased = "2"
+                }
                 do refereeArray.%Push({"id":(resultSetMatches.%GetData(1)), "day": ($ZDATE(resultSetMatches.%GetData(2),4)), 
                 "division": (resultSetMatches.%GetData(3)), "journey": (resultSetMatches.%GetData(4)), 
                 "local": (resultSetMatches.%GetData(5)), "visitor": (resultSetMatches.%GetData(6)),
                 "predictedResult": (resultSetMatches.%GetData(7)), "probability1": (resultSetMatches.%GetData(8)),
                 "probabilityX": (resultSetMatches.%GetData(9)), "probability2": (resultSetMatches.%GetData(10)),
                 "localGoals": (resultSetMatches.%GetData(11)), "visitorGoals": (resultSetMatches.%GetData(12)),
-                "result": (resultSetMatches.%GetData(13))})
+                "result": (resultSetMatches.%GetData(13)), "randomBased": (randomBased)})
             }            
             set pResponse.Status = "Finished" 
             set pResponse.Result = refereeArray.%ToJSON()
